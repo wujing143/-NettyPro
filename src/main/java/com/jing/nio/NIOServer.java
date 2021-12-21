@@ -25,14 +25,16 @@ public class NIOServer {
         Selector  selector = Selector.open();
 
         //绑定一个端口6666，在服务器监听
-        serverSocketChannel.socket().bind(new InetSocketAddress(6666));
+        serverSocketChannel.socket().bind(new InetSocketAddress(6666));// 真实类型：WindowsSelectorImpl
 
         //设置为非阻塞通道
         serverSocketChannel.configureBlocking(false);
 
         //吧 serverSocketChannel 注册到 selector中，关心事件为 OP_ACCEPT
         serverSocketChannel.register(selector, SelectionKey.OP_ACCEPT);
+        System.out.println("注册后的selectionkey 数量=" + selector.keys().size()); // 1
 
+        //循环等待客户端连接
         while (true) {
 
             if (selector.select(1000) == 0) { //等待1秒，selector选择器还未监听到任何事件发生，返回
@@ -42,7 +44,7 @@ public class NIOServer {
 
             //如有事件（>0）,就返回 selectionKey 集合
             Set<SelectionKey> selectionKeys = selector.selectedKeys();
-
+            System.out.println("selectionKeys 数量 = " + selectionKeys.size());
             // 遍历 Set<SelectionKey>,使用迭代器遍历
             Iterator<SelectionKey> iterator = selectionKeys.iterator();
 
@@ -61,6 +63,7 @@ public class NIOServer {
                     System.out.println("已被客户端连接，生成一个socketChannel：" + socketChannel.hashCode());
                     //将socketChannel注册到 selector，关注事件为OP_READ，并关联一个Buffer
                     socketChannel.register(selector, SelectionKey.OP_READ, ByteBuffer.allocate(1024));
+                    System.out.println("客户端连接后 ，注册的selectionkey 数量=" + selector.keys().size()); //2,3,4..
                 }
 
                 if (key.isReadable()) {// 发生 OP_ACCEPT
