@@ -16,7 +16,6 @@ public class GroupChatServer {
     //构造器
     //初始化工作
     public GroupChatServer() {
-
         try {
 
             //得到选择器
@@ -39,7 +38,7 @@ public class GroupChatServer {
     //监听
     public void listen() {
 
-        System.out.println("监听线程: " + Thread.currentThread().getName());
+        System.out.println("服务端监听线程: " + Thread.currentThread().getName());
         try {
 
             //循环处理
@@ -61,13 +60,12 @@ public class GroupChatServer {
                             //将该 sc 注册到seletor
                             sc.register(selector, SelectionKey.OP_READ);
 
-                            //提示
+                            //提示————一个客户端上线
                             System.out.println(sc.getRemoteAddress() + " 上线 ");
 
                         }
                         if(key.isReadable()) { //通道发送read事件，即通道是可读的状态
                             //处理读 (专门写方法..)
-
                             readData(key);
 
                         }
@@ -101,7 +99,7 @@ public class GroupChatServer {
             //创建buffer
             ByteBuffer buffer = ByteBuffer.allocate(1024);
 
-            int count = channel.read(buffer);
+            int count = channel.read(buffer);//将数据读到buffer上
             //根据count的值做处理
             if(count > 0) {
                 //把缓存区的数据转成字符串
@@ -126,7 +124,7 @@ public class GroupChatServer {
         }
     }
 
-    //转发消息给其它客户(通道)
+    //客户端转发消息给其它客户(通道)
     private void sendInfoToOtherClients(String msg, SocketChannel self ) throws  IOException{
 
         System.out.println("服务器转发消息中...");

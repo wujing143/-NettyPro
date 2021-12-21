@@ -41,7 +41,7 @@ public class GroupChatClient {
         info = username + " 说：" + info;
 
         try {
-            socketChannel.write(ByteBuffer.wrap(info.getBytes()));
+            socketChannel.write(ByteBuffer.wrap(info.getBytes())); //吧缓冲区数据写入通道中
         }catch (IOException e) {
             e.printStackTrace();
         }
