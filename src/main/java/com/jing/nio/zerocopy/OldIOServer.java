@@ -4,7 +4,9 @@ import java.io.DataInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-//java IO 的服务器
+/**
+ * Java IO文件传输速度
+ */
 public class OldIOServer {
 
     public static void main(String[] args) throws Exception {

@@ -5,6 +5,10 @@ import java.net.InetSocketAddress;
 import java.nio.channels.FileChannel;
 import java.nio.channels.SocketChannel;
 
+/**
+ * NIO文件传输速度
+ */
+
 public class NewIOClient {
     public static void main(String[] args) throws Exception {
 
