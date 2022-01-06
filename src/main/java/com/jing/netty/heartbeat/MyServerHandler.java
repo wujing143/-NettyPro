@@ -4,6 +4,9 @@ import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
 
+/**
+ * 心跳机制的处理器
+ */
 public class MyServerHandler extends ChannelInboundHandlerAdapter {
 
     /**
@@ -34,7 +37,7 @@ public class MyServerHandler extends ChannelInboundHandlerAdapter {
             System.out.println(ctx.channel().remoteAddress() + "--超时时间--" + eventType);
             System.out.println("服务器做相应处理..");
 
-            //如果发生空闲，我们关闭通道
+            //如果发生空闲，我们直接关闭通道：——>只会检测一次
            // ctx.channel().close();
         }
     }
