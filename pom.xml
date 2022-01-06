@@ -27,6 +27,7 @@
       <scope>test</scope>
     </dependency>
 
+<!--是一种轻便高效的结构化数据存储格式，编码解码。  -->
     <dependency>
       <groupId>com.google.protobuf</groupId>
       <artifactId>protobuf-java</artifactId>
