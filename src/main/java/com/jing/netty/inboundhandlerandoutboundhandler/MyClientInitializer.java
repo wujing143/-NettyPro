@@ -16,7 +16,8 @@ public class MyClientInitializer extends ChannelInitializer<SocketChannel> {
 
         //这时一个入站的解码器(入站handler )
         //pipeline.addLast(new MyByteToLongDecoder());
-        pipeline.addLast(new MyByteToLongDecoder2());
+        pipeline.addLast(new MyByteToLongDecoder2()); ////在 ReplayingDecoder 不需要判断数据是否足够读取，内部会进行处理判断
+
         //加入一个自定义的handler ， 处理业务
         pipeline.addLast(new MyClientHandler());
 
